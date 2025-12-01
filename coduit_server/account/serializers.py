@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.utils import timezone
+from threading import Thread
 from django.contrib.auth.password_validation import CommonPasswordValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
 from datetime import timedelta
@@ -13,6 +14,7 @@ import logging
 from .models import CustomUser, EmailVerificationToken, PasswordResetToken
 
 logger = logging.getLogger(__name__)
+
 
 
 
@@ -38,6 +40,12 @@ def validate_strong_password(value):
         raise serializers.ValidationError(_("This password is too common."))
 
     return value
+
+# ===================================== SEND EMAIL HELPER =======================================
+
+def send_email_async(subject,message,from_email,recipient_list):
+    thread = Thread(target=send_mail, args=(subject,message,from_email,recipient_list),kwargs={'fail_silently':False})
+    thread.start()
 
 
 # ===================== REGISTER SERIALIZER =====================

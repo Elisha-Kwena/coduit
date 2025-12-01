@@ -175,3 +175,15 @@ os.makedirs(BASE_DIR / 'logs', exist_ok=True)
 
 
 
+# Celery Configuration
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')  # Use env var for production
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'  # Match your project's timezone
+CELERY_BEAT_SCHEDULE = {}  # If you need scheduled tasks later
+
+# Optional: For retries on email failures
+CELERY_TASK_DEFAULT_RETRY_DELAY = 60  # Retry after 1 min
+CELERY_TASK_MAX_RETRIES = 3
