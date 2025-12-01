@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import ThemeProviderWrapper from "@/components/theme/ThemeProvider";
 import ThemeToggle from "@/components/theme/ToggleTheme";
 import LandingNavBar from "@/components/layout/LandingNavBar";
+import SafeErrorBoundary from "./SafeErrorBoundary";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,11 +39,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
-       <ThemeProviderWrapper>
-          {/* <LandingNavBar/> */}
-          {children}
-        </ThemeProviderWrapper>
+        <SafeErrorBoundary>
+          <ThemeProviderWrapper>
+            {children}
+          </ThemeProviderWrapper>
+        </SafeErrorBoundary>
+
       </body>
     </html>
   );

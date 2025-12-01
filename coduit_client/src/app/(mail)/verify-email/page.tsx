@@ -31,7 +31,7 @@ export default function VerifyEmail() {
       .verifyEmail(token, email)
       .then(() => {
         setSuccess("Email verified! Welcome to CODUIT")
-        setTimeout(() => { router.push('/topics');}, 3000);
+        setTimeout(() => { router.push('/interests');}, 3000);
       })
       .catch((err:any) => {
         setError(err.message || "LLink expired or invalid")
