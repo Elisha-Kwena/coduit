@@ -39,6 +39,8 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
 
+
+
 # ===================== INSTALLED APPS =====================
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -170,3 +172,6 @@ LOGGING = {
 
 # Create logs folder
 os.makedirs(BASE_DIR / 'logs', exist_ok=True)
+
+
+

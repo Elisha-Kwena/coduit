@@ -15,6 +15,7 @@ from .models import CustomUser, EmailVerificationToken, PasswordResetToken
 logger = logging.getLogger(__name__)
 
 
+
 # ===================== HELPER: Strong Password Validation =====================
 def validate_strong_password(value):
     """Used in Register & Password Reset"""
@@ -96,7 +97,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         # Send email
         if self.context.get('request'):
-            frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+            frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000').rstrip("/")
             verification_url = f"{frontend_url}/verify-email?token={token.token}&email={user.email}"
             
             send_mail(
