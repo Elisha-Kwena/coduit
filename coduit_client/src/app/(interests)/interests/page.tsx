@@ -17,48 +17,63 @@ interface Category {
   name: string;
 }
 
-export default function Topics() {
+export default function Interest() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedInterestId, setSelectedInterestId] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<string | null>(null)
 
   // Real data from backend
   const [categories, setCategories] = useState<Category[]>([]);
   const [allInterests, setAllInterests] = useState<Interest[]>([]);
   const [defaultInterest, setDefaultInterest] = useState<Interest[]>([]);
+  const [error,setError] = useState<string | null>(null)
 
+
+  // loading all categories and all interests and popular ones on mount
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        setIsLoading(true);
+    const loadData = async () =>{
+      try{
+        setIsLoading(true)
+        setError(null)
 
         const [cats, all, popular] = await Promise.all([
           interestService.getCategories(),
-          interestService.getAllInterests(),
-          interestService.getPopularInterests(),
+          interestService.getInterests(),
+          interestService.getPopularInterests()
         ]);
 
         setCategories(cats);
-        setAllInterests(all);
-        setDefaultInterest(popular);
+        setAllInterests(all)
+        setDefaultInterest(popular)
 
-        // Pre-select popular topics
-        setSelectedInterestId(popular.map(i => i.id));
-      } catch (err) {
-        console.error("Failed to load interests:", err);
-        alert("Could not load topics. Please try again.");
+        // first time user : no interests saved -> pre-select recommend
+
+        // Always pre-select recommended topics during onboarding
+        // (safe because this page is only shown once after signup)
+        const recommendedIds = popular.map(i => i.id);
+        setSelectedInterestId(recommendedIds);
+
+      } catch(err:any){
+        console.log("Failed to load interests", err);
+        setError("Failed to load interests. Please try again");
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadData();
-  }, []);
+    loadData()
+  }, [])
 
-  const filteredInterests = allInterests.filter(item => {
-    const matchesCategory = selectedCategory ? item.category === Number(selectedCategory) : true;
+
+
+  const filteredInterests = allInterests.filter((item) => {
+    const matchesCategory = selectedCategory 
+      ? item.category === Number(selectedCategory) 
+      : true;
     const matchesSearch = searchQuery
       ? item.interest.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
@@ -78,26 +93,61 @@ export default function Topics() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (selectedInterestId.length === 0) {
-      setIsModalOpen(true);
-      return;
+    if (selectedInterestId.length === 0){
+      setMessage("Please select at least one Interest to Continue");
+      setTimeout(() => {
+        setMessage(null);
+      }, 4000);
+      return
     }
 
-    try {
-      await interestService.saveUserInterests(selectedInterestId);
-      setIsModalOpen(true);
-    } catch (err) {
-      alert("Failed to save your topics. Please try again.");
+    try{
+      setIsSubmitting(true)
+      setError(null);
+      setMessage(null)
+
+      await interestService.selectInitialInterests(selectedInterestId)
+      
+      setIsModalOpen(true)
+    } catch (err:any){
+      console.error("Failed to save Interests", err)
+      const message =
+        err?.message ||
+        "Something went wrong. Please try again.";
+      setError(message)
+      setMessage(message)
+    } finally{
+      setIsSubmitting(false)
     }
   };
 
+  // loading state
+  // Loading state
   if (isLoading) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
-        <div className="text-sapphire text-2xl">Loading interests...</div>
+        <div className="text-sapphire text-2xl font-bold animate-pulse">
+          Loading Interests...
+        </div>
       </div>
     );
   }
+
+  // Error state (rare)
+  if (error && !isLoading) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center flex-col gap-4">
+        <p className="text-red-500 text-xl">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-3 bg-sapphire text-white rounded-lg"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
 
   return (
     <div className="h-screen w-full flex items-center justify-start px-2 lg:px-0 py-4 flex-col">
@@ -108,6 +158,26 @@ export default function Topics() {
         Select your favorite topics. This helps us personalize your community feed. (Don't worry, you can change these later.)
       </p>
 
+      {/* Fixed Top Toast Notification */}
+      {message && (
+      <div className="inset-x-0 top-4 fixed z-50 flex justify-center pointer-events-none">
+        <div
+          className="bg-lime_green text-white px-6 py-3 rounded-lg shadow-2xl border border-white/20
+                     font-fira-code font-medium text-center
+                     animate-in slide-in-from-top-4 fade-in duration-500
+                     data-[state=closed]:animate-out slide-out-to-top-4 fade-out"
+          // Auto-remove from DOM after animation ends
+          onAnimationEnd={(e) => {
+            if (e.animationName.includes("slide-out")) {
+              setMessage(null);
+            }
+          }}
+        >
+          {message}
+        </div>
+      </div>
+      )}
+      
       {/* Filters */}
       <div className="lg:w-[90%] w-[95%] flex flex-col gap-2 items-center justify-between p-2 rounded-md border border-dark800/10 dark:border-chrome/10 mx-auto mt-4 bg-[#ffffff] dark:bg-dark800 shadow-lg">
         <div className="w-full flex flex-col lg:flex-row gap-4 items-center justify-between p-1 rounded-md border-dark800/10 dark:border-chrome/10 mx-auto bg-off_white dark:bg-dark800">

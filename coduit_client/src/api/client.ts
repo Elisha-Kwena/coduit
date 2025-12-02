@@ -15,6 +15,7 @@ export const api = async <T = any>(
 ): Promise<T> => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`;
 
+  // FIX: Read token on EVERY call, not once at import
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const headers: HeadersInit = {
@@ -27,50 +28,26 @@ export const api = async <T = any>(
     ...options,
     headers,
     credentials: "include",
-    cache: "no-store",
   };
 
-  let response: Response;
+  const response = await fetch(url, config);
 
-  try {
-    response = await fetch(url, config);
-  } catch (err: any) {
-    console.error("API FETCH FAILED:", err);
-    console.log("Trying to reach:", url);
-    throw new Error(`Cannot reach backend. Is it running on ${process.env.NEXT_PUBLIC_API_URL}?`);
-  }
-
-  // HANDLE ERRORS — SHOW REAL DJANGO MESSAGES
   if (!response.ok) {
     let errorMessage = "Something went wrong";
     let errorData: any = {};
 
-    // Try to parse JSON error response
     try {
       errorData = await response.json();
-    } catch {
-      // If not JSON, use status text
-      errorMessage = response.statusText || errorMessage;
-    }
+    } catch {}
 
-    // EXTRACT THE REAL MESSAGE FROM DJANGO
-    if (errorData.non_field_errors?.[0]) {
-      errorMessage = errorData.non_field_errors[0];
-    } else if (errorData.email?.[0]) {
-      errorMessage = errorData.email[0];
-    } else if (errorData.password?.[0]) {
-      errorMessage = errorData.password[0];
-    } else if (errorData.detail) {
-      errorMessage = errorData.detail;
-    } else if (typeof errorData === "string") {
-      errorMessage = errorData;
-    }
-
-    // Auto logout on 401
     if (response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/login?expired=true";
+      if (typeof window !== "undefined") {
+        window.location.href = "/login?expired=true";
+      }
     }
+
+    errorMessage = errorData.detail || errorData.non_field_errors?.[0] || response.statusText;
 
     const error = new Error(errorMessage) as any;
     error.status = response.status;
@@ -78,11 +55,9 @@ export const api = async <T = any>(
     throw error;
   }
 
-  // SUCCESS — return data
   if (rawResponse) return response as any;
-
   try {
-    return (await response.json()) as T;
+    return await response.json();
   } catch {
     return {} as T;
   }

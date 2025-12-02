@@ -16,47 +16,55 @@ export type LoginData = {
 
 export const authService = {
     register: async (data:RegisterData) =>
-        api("/auth/register/",{
+        api("/api/auth/register/",{
             method:"POST",
-            body:JSON.stringify(data)
+            body:JSON.stringify(data),
+            auth:false,
+        }),
+    login: async (data: LoginData) => {
+      console.log("Attempting login with:", data.email);
+    
+      const res = await api<{ access: string; refresh: string }>("/api/token/", {
+        method: "POST",
+        body: JSON.stringify(data),
+        auth: false,
+      });
+  
+      // Success! Log the tokens
+      console.log("Login successful!");
+      console.log("Access token:", res.access);
+      console.log("Refresh token:", res.refresh);
+  
+      // Save to localStorage
+      localStorage.setItem("token", res.access);
+  
+      console.log("Token saved to localStorage:", localStorage.getItem("token"));
+  
+      return res;
+    },
+    
+
+
+    logout : () =>{
+        localStorage.removeItem("token");
+        window.location.href="/"
+    },
+    requestPasswordReset : (email:string) =>
+        api("api/auth/password-reset/",{
+            method:"POST",
+            body:JSON.stringify({email})
+        }),
+    confirmPasswordReset: (token:string, email:string, password:string)=>
+        api("api/auth/password-reset/confirm/",{
+            method:"POST",
+            body:JSON.stringify({token,email,password,password_confirm:password})
         }),
     
-        login: async (data:LoginData) =>{
-            const res = await api<{token:string; user?: any}>("/auth/login/",{
-                method:"POST",
-                body:JSON.stringify(data)
-            });
-
-            if (res.token) {
-                localStorage.setItem("token",res.token)
-            }
-
-            return res;
-        },
-
-        logout : () =>{
-            localStorage.removeItem("token");
-            window.location.href="/"
-        },
-
-        requestPasswordReset : (email:string) =>
-            api("/auth/password-reset/",{
-                method:"POST",
-                body:JSON.stringify({email})
-            }),
-
-        confirmPasswordReset: (token:string, email:string, password:string)=>
-            api("/auth/password-reset/confirm/",{
-                method:"POST",
-                body:JSON.stringify({token,email,password,password_confirm:password})
-            }),
-        
-        verifyEmail: (token:string,email:string) =>
-            api(`/auth/verify-email?token=${token}&email=${email}`),
-
-        resendVerification : (email:string) =>
-            api("/auth/resend-verification/",{
-                method:"POST",
-                body:JSON.stringify({email}),
-            }),
+    verifyEmail: (token:string,email:string) =>
+        api(`api/auth/verify-email?token=${token}&email=${email}`),
+    resendVerification : (email:string) =>
+        api("api/auth/resend-verification/",{
+            method:"POST",
+            body:JSON.stringify({email}),
+        }),
 }

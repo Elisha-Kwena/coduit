@@ -81,3 +81,4 @@ class InterestSelectionSerializer(serializers.Serializer):
             raise serializers.ValidationError(_("One or more selected interests do not exist."))
 
         return value
+

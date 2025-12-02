@@ -22,8 +22,11 @@ class InterestCategoryAdmin(admin.ModelAdmin):
 
     def interests_count(self, obj):
         count = obj.interests.count()
-        url = reverse("admin:interests_interestmodel_changelist") + "?" + urlencode({"category__id__exact": obj.id})
+        url = reverse("admin:interests_interestmodel_changelist") + "?" + urlencode(
+            {"category__id__exact": obj.id}
+        )
         return format_html('<a href="{}">{} Interests</a>', url, count)
+
     interests_count.short_description = "Interests"
     interests_count.admin_order_field = 'interests__count'
 
@@ -45,6 +48,7 @@ class InterestModelAdmin(admin.ModelAdmin):
             return "—"
         url = reverse("admin:interests_interestcategory_change", args=[obj.category.id])
         return format_html('<a href="{}">{}</a>', url, obj.category.name)
+
     category_link.short_description = "Category"
     category_link.admin_order_field = 'category__name'
 
@@ -63,9 +67,11 @@ class InterestModelAdmin(admin.ModelAdmin):
 @admin.register(UserInterests)
 class UserInterestsAdmin(admin.ModelAdmin):
     list_display = ['user_link', 'interests_count', 'created_at']
-    search_fields = ['user__username', 'user__email']
+    search_fields = ['user__username', 'user__email', 'user__handlename']
     readonly_fields = ['created_at', 'updated_at']
     filter_horizontal = ['interest']
+    raw_id_fields = ['user']  # Very important for performance with many users
+    list_per_page = 50
 
     def has_add_permission(self, request):
         return False
@@ -76,28 +82,49 @@ class UserInterestsAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('interest')
 
+    # FIXED: This was the root cause of the NoReverseMatch error
     def user_link(self, obj):
-        url = reverse("admin:auth_user_change", args=[obj.user.id])
+        if not obj.user_id:
+            return "-"
+
+        # Correct URL for your CustomUser model (app_label: account, model: customuser)
+        url = reverse("admin:account_customuser_change", args=[obj.user.pk])
+
+        display_name = obj.user.get_username() or obj.user.email
+        email = obj.user.email
+
         return format_html(
             '<a href="{}"><strong>{}</strong></a><br><small>{}</small>',
-            url, obj.user.get_username(), obj.user.email
+            url,
+            display_name,
+            email
         )
+
     user_link.short_description = "User"
+    user_link.admin_order_field = 'user__email'  # Enables sorting by email
 
     def interests_count(self, obj):
         count = obj.interest.count()
-        url = reverse("admin:interests_interestmodel_changelist") + "?" + urlencode({
-            "selected_by_users__id__exact": obj.id
-        })
+        url = (
+            reverse("admin:interests_interestmodel_changelist")
+            + "?"
+            + urlencode({"selected_by_users__id__exact": obj.id})
+        )
         return format_html('<a href="{}">{} interest(s)</a>', url, count)
+
     interests_count.short_description = "Interests"
+    interests_count.admin_order_field = 'interest__count'
 
     @admin.action(description="Clear selected users' interests")
     def clear_interests(self, request, queryset):
         cleared = 0
         for profile in queryset:
             profile.interest.clear()
-            cleared += 1
-        self.message_user(request, f"Cleared interests for {cleared} user(s).", messages.SUCCESS)
+            cleared += profile.interest.count()  # optional: count cleared items
+        self.message_user(
+            request,
+            f"Cleared all interests for {queryset.count()} user(s).",
+            messages.SUCCESS,
+        )
 
     actions = [clear_interests]

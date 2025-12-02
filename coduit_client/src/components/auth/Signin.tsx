@@ -71,7 +71,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             email: formData.email.toLowerCase().trim(),
             password: formData.password
         });
-        router.push("/topics");
+        router.push("/interests");
 
     } catch (err: any) {
         let errorMessage = "Something went wrong";
