@@ -62,3 +62,27 @@ export const api = async <T = any>(
     return {} as T;
   }
 };
+
+        // login: async (data:LoginData) =>{
+        //     const res = await api<{
+        //         access?:string;
+        //         token?:string;
+        //         key?:string;
+        //         auth_token?:string;
+        //         user?: any
+        //     }>("/auth/login/",{
+        //         method:"POST",
+        //         body:JSON.stringify(data),
+        //         auth:false
+        //     });
+
+        //     const token = res.access || res.token || res.key || res.key;
+
+        //     if (token) {
+        //         localStorage.setItem("token",token)
+        //     }else{
+        //         console.log("Login succeded but no token received:", res)
+        //     }
+
+        //     return res;
+        // },

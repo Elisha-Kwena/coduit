@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { interestService } from "@/service/interestService";
 import TopicsSuccessModal from "@/components/ui/modals/TopicSuccessModal";
+import InterestsLoader from "@/components/ui/loaders/InterestsLoader";
 
 interface Interest {
   id: number;
@@ -39,6 +40,8 @@ export default function Interest() {
       try{
         setIsLoading(true)
         setError(null)
+
+        const minDelay = new Promise(resolve => setTimeout(resolve, 2000));
 
         const [cats, all, popular] = await Promise.all([
           interestService.getCategories(),
@@ -125,11 +128,7 @@ export default function Interest() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex items-center justify-center">
-        <div className="text-sapphire text-2xl font-bold animate-pulse">
-          Loading Interests...
-        </div>
-      </div>
+      <InterestsLoader/>
     );
   }
 
@@ -160,7 +159,7 @@ export default function Interest() {
 
       {/* Fixed Top Toast Notification */}
       {message && (
-      <div className="inset-x-0 top-4 fixed z-50 flex justify-center pointer-events-none">
+      <div className="inset-x-3 md:inset-x-0 top-4 fixed z-50 flex justify-center pointer-events-none">
         <div
           className="bg-lime_green text-white px-6 py-3 rounded-lg shadow-2xl border border-white/20
                      font-fira-code font-medium text-center
@@ -210,7 +209,7 @@ export default function Interest() {
 
         {/* Default Topics */}
         <div className="w-full">
-          <h1 className="text-black dark:text-white">Default Topics</h1>
+          <h1 className="text-black dark:text-white mb-2">Recommended Interests</h1>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
             {defaultInterest.map((item) => (
               <button
@@ -256,13 +255,13 @@ export default function Interest() {
             <button
               type="button"
               onClick={handleSelectDefault}
-              className="w-full lg:w-auto p-2 text-sapphire backdrop-blur-lg bg-sapphire px-6 font-extrabold border-[2px] border-sapphire rounded-[5px] bg-transparent"
+              className="w-full lg:w-auto p-2 text-sapphire backdrop-blur-lg bg-sapphire px-6 font-extrabold border-[2px] border-sapphire rounded-[5px] bg-transparent transition-all duration-300 ease-in-out hover:bg-sapphire hover:text-white hover:border-white"
             >
-              Select Default
+              Select Recommended
             </button>
             <button
               type="submit"
-              className="w-full lg:w-auto p-2 text-white bg-sapphire px-6 font-extrabold border-[2px] border-sapphire rounded-[5px]"
+              className="w-full lg:w-auto p-2 text-white bg-sapphire px-6 font-extrabold border-[2px] border-sapphire rounded-[5px] transition-all duration-300 ease-in-out hover:border-sapphire hover:bg-transparent hover:text-sapphire"
             >
               Submit selected ({selectedInterestId.length})
             </button>
