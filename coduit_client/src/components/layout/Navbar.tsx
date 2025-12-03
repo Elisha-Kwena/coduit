@@ -32,7 +32,7 @@ export default function Navbar(){
                             <NavSearch/>
                         </div>
                     </div>
-                    <div className="md:w-30 flex items-center justify-end gap-2 px-2 relative">
+                    <div className="md:w-30 flex items-center justify-end gap-2 px-2 relative z-100">
                         <button
                             onClick={toggleSidebar} 
                             className="flex md:hidden items-center justify-center relative self-end">
