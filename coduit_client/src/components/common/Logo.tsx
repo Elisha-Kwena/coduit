@@ -7,7 +7,7 @@ export default function Logo(){
     return (
         <>
         <Link href="/" className="flex items-center justify-start gap-2">
-            <div className="w-12 h-12 relative">
+            <div className="w-8 md:w-12 h-8 md:h-12 relative">
                 <Image
                     src="/coduit.png"
                     alt="coduit logo"

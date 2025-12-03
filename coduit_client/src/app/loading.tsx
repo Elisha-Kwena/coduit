@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Loader = () => {
   return (
     <StyledWrapper>
-      <div className="loader">
+      <div className="loader animate-pulse">
             <div className="bar vertical left   orange"></div>  
             <div className="bar vertical right  lime"></div>    
 

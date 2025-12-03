@@ -41,8 +41,6 @@ export default function Interest() {
         setIsLoading(true)
         setError(null)
 
-        const minDelay = new Promise(resolve => setTimeout(resolve, 2000));
-
         const [cats, all, popular] = await Promise.all([
           interestService.getCategories(),
           interestService.getInterests(),
