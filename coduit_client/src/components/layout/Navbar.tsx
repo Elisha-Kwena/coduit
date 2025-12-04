@@ -18,7 +18,7 @@ export default function Navbar(){
     const pathname = usePathname()
     return(
         <>
-            <header className="z-[100] fixed top-0 left-0 right-0 md:h-16 pt-1 bg-white flex flex-col gap-1 dark:bg-black shadow  md:grid place-items-center">
+            <header className="z-[100] fixed top-0 left-0 right-0 md:h-16 pt-2 bg-white flex flex-col gap-1 dark:bg-black shadow  md:grid place-items-center">
                 <nav className="w-full flex items-center justify-between gap-1">
                     <div className="md:w-72 px-2 ">
                         <Logo/>
@@ -63,7 +63,7 @@ export default function Navbar(){
                         </button>
                     </div>
                 </nav>
-                <div className="nav2 w-full block md:hidden  p-1 px-2">
+                {/* <div className="nav2 w-full block md:hidden  p-1 px-2">
                     <div className="w-full flex items-center justify-between gap-2">
                         <div className="w-7 h-7 rounded-full overflow-hidden relative">
                             <Image 
@@ -88,7 +88,7 @@ export default function Navbar(){
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </header>
         </>
     )

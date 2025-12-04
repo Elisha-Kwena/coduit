@@ -1,11 +1,22 @@
 import Image from "next/image"
 import Link from "next/link";
 import PersonAddAlt1RoundedIcon from '@mui/icons-material/PersonAddAlt1Rounded';
-export default function FeedExtraDetails(){
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+
+
+interface ExtraDetailsProps{
+    toggleExtras: ()=> void;
+}
+export default function FeedExtraDetails({toggleExtras}:ExtraDetailsProps){
     return(
         <>
         <div className="w-full flex flex-col gap-6">
-            <div className="w-full border bg-black border-gray-600 rounded p-4  flex flex-col gap-3">
+            <div className="w-full border bg-black border-gray-600 rounded p-4  flex flex-col gap-3 relative">
+                <button 
+                    onClick={toggleExtras}
+                    className="md:hidden absolute top-1 right-1 p-1 bg-dark800 shadow shadow-gray-700 rounded border border-gray-600 flex items-center justify-center">
+                    <CloseRoundedIcon/>
+                </button>
                 <h1 className="text-white font-bold">About the Author</h1>
                 <div className="w-full rounded flex items-start gap-2 bg-dark800 p-2">
                     <div className="w-12 h-12 rounded-full overflow-hidden relative">
