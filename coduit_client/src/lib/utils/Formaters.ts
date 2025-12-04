@@ -31,13 +31,22 @@ export const useTimePassed = (createdAt: string): string => {
 };
 
 export const useNumberFormatter = () => {
-    const formatNumber = (num: number, decimals: number = 1) => {
-        if (num >= 1000000) {
-            return (num / 1000000).toFixed(decimals) + "M";
-        } else if (num >= 1000) {
-            return (num / 1000).toFixed(decimals) + "K";
+    const formatNumber = (num: number | undefined | null, decimals: number = 1) => {
+        
+        // Handle undefined/null cases
+        if (num === undefined || num === null) {
+            return "0";
         }
-        return num.toString();
+        if (num >= 1000000) {
+            const result = (num / 1000000).toFixed(decimals) + "M";
+            return result;
+        } else if (num >= 1000) {
+            const result = (num / 1000).toFixed(decimals) + "K";
+            return result;
+        }
+        
+        const result = num.toString();
+        return result;
     };
     return { formatNumber }
 }

@@ -21,13 +21,6 @@ export default function FeedsLayout({ children }: FeedsLayoutProps) {
             {children}
           </main>
 
-          {/* Optional: dark backdrop on mobile when sidebar is open */}
-          {/* {isOpen && (
-            <div
-              onClick={() => useSidebar().toggleSidebar()}
-              className="fixed inset-0 bg-black/50 z-40 md:hidden"
-            />
-          )} */}
         </div>
         </div>
       </SidebarProvider>

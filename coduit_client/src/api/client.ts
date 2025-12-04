@@ -1,4 +1,3 @@
-// src/api/client.ts
 type ApiOptions = RequestInit & {
   auth?: boolean;
   rawResponse?: boolean;
