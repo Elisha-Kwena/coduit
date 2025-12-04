@@ -10,14 +10,14 @@ export function Upvote(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
-                        <ThumbUpRoundedIcon className='text-sapphire group-hover:text-white transition-all ease-in-out duration-300'/>
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                        <ThumbUpRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
                     <div className="flex mt-1 flex-col items-center justify-center">
-                        <h1 className="md:text-sm text-[12px] text-sapphire">1.2k</h1>
-                        <p className="text-[12px] text-sapphire ">UpVotes</p>
+                        <h1 className="text-[12px] md:text-sm  text-gray-400 group-hover:text-sapphire transition-all ease-in-out duration-300">1.2k</h1>
+                        <p className="text-[12px] text-gray-400 group-hover:text-sapphire transition-all ease-in-out duration-300 ">UpVotes</p>
                     </div>
                 </button>
             </div>
@@ -28,8 +28,8 @@ export function Downvote(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <ThumbDownRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
@@ -46,8 +46,8 @@ export function Comments(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <ChatBubbleRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
@@ -64,8 +64,8 @@ export function Save(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <BookmarkRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
@@ -81,8 +81,8 @@ export function Repost(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <RepeatRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
@@ -99,8 +99,8 @@ export function Share(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 md:w-9 w-7 md:h-9 h-7 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <ReplyRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     
@@ -116,8 +116,8 @@ export function CopyLink(){
     return(
         <>
             <div className="flex flex-col gap-2 w-full">
-                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-dark700 rounded transition-all ease-in-out duration-300">
-                    <span className="bg-dark700 p-1 w-9 h-9 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
+                <button className="flex group w-full flex-col items-center justify-center p-1 hover:bg-gray-200 dark:hover:bg-dark700 rounded transition-all ease-in-out duration-300">
+                    <span className="dark:bg-dark700 bg-gray-200 p-1 w-9 h-9 flex items-center justify-center rounded-full group-hover:bg-sapphire transition-all ease-in-out duration-300">
                         <FileCopyRoundedIcon className='text-gray-400 group-hover:text-white transition-all ease-in-out duration-300'/>
                     </span>
                     

@@ -42,25 +42,25 @@ export default function FeedDetails(){
 
             <div className="w-full flex items-center justify-between pt-1">
                 <div className="flex items-center justify-start gap-3">
-                    <button className="flex items-center justify-center p-1 rounded border border-gray-500 rotate-180 hover:border-sapphire transition-all duration-300 ease-in-out group">
+                    <button className="flex items-center justify-center p-1 rounded dark:bg-black bg-white shadow border dark:border-gray-500 rotate-180 hover:border-sapphire transition-all duration-300 ease-in-out group">
                         <ArrowForwardIosRoundedIcon className='transition-all duration-300 ease-in-out group-hover:text-sapphire'/>
                     </button>
-                    <button className="flex items-center justify-center p-1 rounded border border-gray-500 hover:border-sapphire transition-all duration-300 ease-in-out group">
+                    <button className="flex items-center justify-center p-1 rounded dark:bg-black bg-white shadow border dark:border-gray-500 hover:border-sapphire transition-all duration-300 ease-in-out group">
                         <ArrowForwardIosRoundedIcon className='transition-all duration-300 ease-in-out group-hover:text-sapphire'/>
                     </button>
                 </div>
                 <div className="flex items-center justify-end gap-2">
                     <button className="flex items-center justify-center border border-sapphire gap-2 bg-sapphire p-1 rounded px-3">
-                        <NotificationsRoundedIcon/>
+                        <NotificationsRoundedIcon className='dark:text-white text-white'/>
                         <p className="text-white">Follow Post</p>
                     </button>
-                    <button className="flex items-center justify-center p-1 rounded border border-gray-600 bg-black">
-                        <MoreHorizRoundedIcon/>
+                    <button className="flex items-center justify-center p-1 bg-white rounded dark:border shadow hover:bg-sapphire transition-all duration-300 ease-in-out group border-gray-600 dark:bg-black">
+                        <MoreHorizRoundedIcon className='transition-all duration-300 ease-in-out group-hover:text-white'/>
                     </button>
                     <button 
                         onClick={toggleExtras}
-                        className="md:hidden flex items-center justify-center p-1 rounded bg-black border border-gray-600 hover:bg-black">
-                        <MenuRoundedIcon/>
+                        className="md:hidden group flex items-center justify-center p-1 bg-white shadow rounded dark:bg-black border border-gray-600 dark:hover:bg-black">
+                        <MenuRoundedIcon className='group-hover:text-sapphire'/>
                     </button>
                 </div>
             </div>
@@ -76,10 +76,10 @@ export default function FeedDetails(){
                 </div>
 
                 {/*==================================================== details======================================================= */}
-                <div className="flex flex-1 bg-black border border-gray-600 rounded-sm overflow-hidden top-24 flex-col gap-2">
+                <div className="flex flex-1 bg-white dark:bg-black dark:border shadow border-gray-600 rounded overflow-hidden top-24 flex-col gap-2">
 
                     {/* ======================================================= author details ============================================== */}
-                    <div className="w-full p-2 md:p-4 flex flex-col gap-1 border-b border-gray-600">
+                    <div className="w-full p-2 md:p-4 flex flex-col gap-1 border-b dark:border-gray-600 border-gray-200">
                         <div className="w-full flex items-start gap-3">
                             <div className="w-12 h-12 rounded-full overflow-hidden border border-sapphire relative">
                                 <Image
@@ -91,7 +91,7 @@ export default function FeedDetails(){
                             </div>
                             <div className="flex-1 flex-col flex">
                                 <div className="w-full flex items-center justify-start gap-2">
-                                    <h1 className="text-white text-sm md:text-md">RedHat_109</h1>
+                                    <h1 className="dark:text-white text-sm md:text-md">RedHat_109</h1>
                                     <div className="flex items-center justify-start gap-1 md:gap-2">
                                         <div className="flex items-center justify-center gap-2 p-1 md:px-2 rounded text-white bg-sapphire">
                                             <CheckRoundedIcon/>
@@ -129,7 +129,7 @@ export default function FeedDetails(){
                         <div className="w-full">
                             <h1 className="text-xl md:text-2xl font-bold">Building a Decentralized Voting System with Zero-Knowledge Proofs</h1>
                             <div className="mt-2 w-full flex items-center justify-start gap-1 md:gap-3 gap-y-2 flex-wrap">
-                                <Link href="" className="p-2 group bg-dark800 border border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
+                                <Link href="" className="p-2 group bg-gray-200 shadow dark:bg-dark800 border dark:border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
                                     <div className="w-4 h-4 relative">
                                         <Image
                                         src="/python.png"
@@ -138,9 +138,9 @@ export default function FeedDetails(){
                                         className='object-cover object-center'
                                     />
                                     </div> 
-                                    <p className="text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Python Pioneers</p>
+                                    <p className="dark:text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Python Pioneers</p>
                                 </Link>
-                                <Link href="" className="p-2 group bg-dark800 border border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
+                                <Link href="" className="p-2 group bg-gray-200 shadow dark:bg-dark800 border dark:border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
                                     <div className="w-4 h-4 relative">
                                         <Image
                                         src="/software.png"
@@ -149,9 +149,9 @@ export default function FeedDetails(){
                                         className='object-cover object-center'
                                     />
                                     </div> 
-                                    <p className="text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Software Devs</p>
+                                    <p className="dark:text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Software Devs</p>
                                 </Link>
-                                <Link href="" className="p-2 group bg-dark800 border border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
+                                <Link href="" className="p-2 group bg-gray-200 shadow dark:bg-dark800 border dark:border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
                                     <div className="w-4 h-4 relative">
                                         <Image
                                         src="/swift.png"
@@ -160,9 +160,9 @@ export default function FeedDetails(){
                                         className='object-cover object-center'
                                     />
                                     </div> 
-                                    <p className="text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Swift App Developers</p>
+                                    <p className="dark:text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Swift App Developers</p>
                                 </Link>
-                                <Link href="" className="p-2 bg-dark800 border border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
+                                <Link href="" className="p-2 bg-gray-200 group shadow dark:bg-dark800 border dark:border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
                                     <div className="w-4 h-4 relative">
                                         <Image
                                         src="/c-sharp.png"
@@ -171,9 +171,9 @@ export default function FeedDetails(){
                                         className='object-cover object-center'
                                     />
                                     </div> 
-                                    <p className="text-gray-300 text-[12px]">C-Sharp Shapers</p>
+                                    <p className="dark:text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">C-Sharp Shapers</p>
                                 </Link>
-                                <Link href="" className="p-2 bg-dark800 border group border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
+                                <Link href="" className="p-2 bg-gray-200 shadow dark:bg-dark800 border group dark:border-gray-600 rounded flex items-center justify-start gap-2 transition-all duration-300 ease-in-out hover:border-sapphire">
                                     <div className="w-4 h-4 relative">
                                         <Image
                                         src="/java.png"
@@ -182,7 +182,7 @@ export default function FeedDetails(){
                                         className='object-cover object-center'
                                     />
                                     </div> 
-                                    <p className="text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Java Dev Pros</p>
+                                    <p className="dark:text-gray-300 text-[12px] transition-all duration-300 ease-in-out group-hover:text-sapphire">Java Dev Pros</p>
                                 </Link>
                             </div>
                         </div>
@@ -203,21 +203,21 @@ export default function FeedDetails(){
 
                 {/*=========================================================== post extra details ===========================================================================*/}
 
-                <div className={`w-full md:w-80 shadow md:sticky p-1  left-0 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-dark800 ${openExtras?"left-0":"-left-[1000px]"}`}>
+                <div className={`w-full md:w-80 md:sticky p-1  left-0 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-gray-200 dark:bg-dark800 ${openExtras?"left-0":"-left-[1000px]"}`}>
                     <FeedExtraDetails toggleExtras={toggleExtras}/>
                 </div>
             </div>
             
             {/* ========================================== Comments details ============================================ */}
-            <div className="w-full bg-black rounded border border-gray-600">
-                <div className="w-full p-2 border-b border-gray-600 flex items-center justify-start gap-3">
-                    <ForumRoundedIcon/>
-                    <p className="text-gray-300"> 89 Comments</p>
+            <div className="w-full bg-white shadow dark:bg-black rounded dark:border border-gray-600">
+                <div className="w-full p-2 border-b border-gray-200 dark:border-gray-600 flex items-center justify-start gap-3">
+                    <ForumRoundedIcon className='dark:text-gray-300 text-gray-400'/>
+                    <p className="dark:text-gray-300 text-gray-500"> 89 Comments</p>
                 </div>
-                <div className="w-full p-2 border-b border-gray-600">
+                <div className="w-full p-2 border-b border-gray-200 dark:border-gray-600">
                     <form action="" className="w-full overflow-hidden flex flex-col gap-2">
                         <div className="textdiv w-full">
-                            <textarea name="" id="" className="max-w-full min-w-full border border-gray-600 text-gray-500 focus:outline-none rounded text-sm h-36 max-40 p-2 overflow-hidden bg-dark800 placeholder:text-gray-400" placeholder='Add to the discussion ... (Markdown supported) '></textarea>
+                            <textarea name="" id="" className="max-w-full min-w-full border border-gray-300 dark:border-gray-600 text-gray-500 focus:outline-none rounded text-sm h-36 max-40 p-2 overflow-hidden bg-gray-200 dark:bg-dark800 placeholder:text-gray-400" placeholder='Add to the discussion ... (Markdown supported) '></textarea>
                         </div>
                         <div className="w-full flex items-center justify-between">
                             <div className="flex items-center justify-start gap-2">
@@ -259,7 +259,7 @@ export default function FeedDetails(){
                             </div>
                         </div>
                         <div className="w-full mt-2 pl-10">
-                            <p className="text-white text-sm">Great tutorial! Have you considered integrating with Semaphore for anonymous signaling? It could provide additional privacy guarantees for the voting process. ```solidity // Example integration ISemaphore semaphore = ISemaphore(semaphoreAddress); semaphore.verifyProof(proof, merkleTreeDepth, signal); ```</p>
+                            <p className="dark:text-white text-sm">Great tutorial! Have you considered integrating with Semaphore for anonymous signaling? It could provide additional privacy guarantees for the voting process. ```solidity // Example integration ISemaphore semaphore = ISemaphore(semaphoreAddress); semaphore.verifyProof(proof, merkleTreeDepth, signal); ```</p>
                         </div>
 
                         <div className="w-ful flex items-center justify-start gap-3 mt-2 pl-10">
@@ -289,7 +289,7 @@ export default function FeedDetails(){
                             </div>
                         </div>
                         <div className="w-full mt-2 pl-10">
-                            <p className="text-white text-sm">Excellent implementation! One suggestion: you might want to add a timelock for vote revealing to prevent last-minute manipulation attacks. Also, consider using EIP-712 for typed structured data signing when registering voters.</p>
+                            <p className="dark:text-white text-sm">Excellent implementation! One suggestion: you might want to add a timelock for vote revealing to prevent last-minute manipulation attacks. Also, consider using EIP-712 for typed structured data signing when registering voters.</p>
                         </div>
 
                         <div className="w-ful flex items-center justify-start gap-3 mt-2 pl-10">

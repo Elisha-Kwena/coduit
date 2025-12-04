@@ -14,21 +14,21 @@ export default function FeedContents(){
                         className='object-cover object-center'
                     />
                 </div>
-                <h1 className="text-white text-2xl font-bold mb-2">Introduction</h1>
+                <h1 className="dark:text-white text-2xl font-bold mb-2">Introduction</h1>
 
                 <p className="text-gray-200 text-sm"></p>
 
 
-                <p className="text-gray-200 text-sm">Traditional voting systems suffer from transparency issues, trust requirements, and privacy concerns. In this tutorial, we'll build a decentralized voting system using Ethereum smart contracts and zero-knowledge proofs to ensure both privacy and verifiability.</p>
-                <p className="text-gray-200 text-sm mt-2">Zero-knowledge proofs allow voters to prove they've voted correctly without revealing their actual vote, ensuring complete privacy while maintaining system integrity.</p>
+                <p className="dark:text-gray-200 text-sm">Traditional voting systems suffer from transparency issues, trust requirements, and privacy concerns. In this tutorial, we'll build a decentralized voting system using Ethereum smart contracts and zero-knowledge proofs to ensure both privacy and verifiability.</p>
+                <p className="dark:text-gray-200 text-sm mt-2">Zero-knowledge proofs allow voters to prove they've voted correctly without revealing their actual vote, ensuring complete privacy while maintaining system integrity.</p>
 
-                <h1 className="text-white text-2xl my-2 font-bold ">Prerequisites</h1>
+                <h1 className="dark:text-white text-2xl my-2 font-bold ">Prerequisites</h1>
                 <ul className="mt-2 flex flex-col gap-0 pl-6">
-                    <li className="text-gray-200 text-sm list-disc">Basic understanding of Ethereum and smart contracts</li>
-                    <li className="text-gray-200 text-sm list-disc">Node.js and npm installed</li>
-                    <li className="text-gray-200 text-sm list-disc">Hardhat or Truffle development environment</li>
-                    <li className="text-gray-200 text-sm list-disc">Knowledge of Circom for circuit compilation</li>
-                    <li className="text-gray-200 text-sm list-disc">MetaMask wallet for testing</li>
+                    <li className="dark:text-gray-200 text-sm list-disc">Basic understanding of Ethereum and smart contracts</li>
+                    <li className="dark:text-gray-200 text-sm list-disc">Node.js and npm installed</li>
+                    <li className="dark:text-gray-200 text-sm list-disc">Hardhat or Truffle development environment</li>
+                    <li className="dark:text-gray-200 text-sm list-disc">Knowledge of Circom for circuit compilation</li>
+                    <li className="dark:text-gray-200 text-sm list-disc">MetaMask wallet for testing</li>
                     {/* <li className="text-gray-200 text-sm list-disc"></li>
                     <li className="text-gray-200 text-sm list-disc"></li>
                     <li className="text-gray-200 text-sm list-disc"></li> */}
@@ -36,8 +36,8 @@ export default function FeedContents(){
                     
                 </ul>
 
-                <h1 className="text-white text-2xl font-bold my-2">SmartContract Implementation</h1>
-                <p className="text-gray-200 text-sm mt-2">Here's our main voting contract with ZK-proof verification:</p>
+                <h1 className="dark:text-white text-2xl font-bold my-2">SmartContract Implementation</h1>
+                <p className="dark:text-gray-200 text-sm mt-2">Here's our main voting contract with ZK-proof verification:</p>
 
                 {/* ======================================================== code block=============================================== */}
 
