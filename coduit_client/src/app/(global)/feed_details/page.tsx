@@ -18,14 +18,9 @@ import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 import QueryBuilderRoundedIcon from '@mui/icons-material/QueryBuilderRounded';
 import WatchLaterRoundedIcon from '@mui/icons-material/WatchLaterRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
-
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
-
 import FeedContents from "@/components/pages/feeds/FeedContents";
-import { Bold,Italic,Code,LinkBtn } from '@/components/ui/buttons/FormattingButtons';
 
-import { Vote,Reply,Report } from '@/components/ui/buttons/CommentsButtons';
+import CommentsContainer from '@/components/pages/feeds/CommentsContainer';
 export default function FeedDetails(){
     const [openExtras,setExtrasOpen] = useState(false)
 
@@ -203,103 +198,13 @@ export default function FeedDetails(){
 
                 {/*=========================================================== post extra details ===========================================================================*/}
 
-                <div className={`w-full md:w-80 md:sticky p-1  left-0 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-gray-200 dark:bg-dark800 ${openExtras?"left-0":"-left-[1000px]"}`}>
+                <div className={`w-full md:w-80 md:sticky p-1  left-0 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-gray-200 dark:bg-dark800 ${openExtras?"left-0":"-left-full"}`}>
                     <FeedExtraDetails toggleExtras={toggleExtras}/>
                 </div>
             </div>
             
             {/* ========================================== Comments details ============================================ */}
-            <div className="w-full bg-white shadow dark:bg-black rounded dark:border border-gray-600">
-                <div className="w-full p-2 border-b border-gray-200 dark:border-gray-600 flex items-center justify-start gap-3">
-                    <ForumRoundedIcon className='dark:text-gray-300 text-gray-400'/>
-                    <p className="dark:text-gray-300 text-gray-500"> 89 Comments</p>
-                </div>
-                <div className="w-full p-2 border-b border-gray-200 dark:border-gray-600">
-                    <form action="" className="w-full overflow-hidden flex flex-col gap-2">
-                        <div className="textdiv w-full">
-                            <textarea name="" id="" className="max-w-full min-w-full border border-gray-300 dark:border-gray-600 text-gray-500 focus:outline-none rounded text-sm h-36 max-40 p-2 overflow-hidden bg-gray-200 dark:bg-dark800 placeholder:text-gray-400" placeholder='Add to the discussion ... (Markdown supported) '></textarea>
-                        </div>
-                        <div className="w-full flex items-center justify-between">
-                            <div className="flex items-center justify-start gap-2">
-                                <Bold/>
-                                <Italic/>
-                                <Code/>
-                                <LinkBtn/>
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-40 p-1 rounded flex gap-3 items-center justify-center px-2 bg-sapphire text-white">
-                                    <SendRoundedIcon/>
-                                    <p className="text-sm">Post Comment</p>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div className="w-full flex flex-col gap-3 p-4">
-
-                    <div className="comment w-full border-b border-gray-600 pb-2">
-                        <div className="w-full flex items-center justify-between">
-                            <div className="flex items-center justify-start gap-3">
-                                <div className="w-8 h-8 rounded-full overflow-hidden relative">
-                                    <Image
-                                        src="/user2.jpeg"
-                                        alt="user2"
-                                        fill
-                                        className='object-cover object-center'
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <h1 className="text-sm text-gray-500">Sarah Miller</h1>
-                                    <p className="text-[12px] text-gray-500">Senior Security Researcher</p>
-                                </div>
-                            </div>
-                            <div className="flex">
-                                <p className="text-sm text-gray-500 sellf-end">2 hours ago</p>
-                            </div>
-                        </div>
-                        <div className="w-full mt-2 pl-10">
-                            <p className="dark:text-white text-sm">Great tutorial! Have you considered integrating with Semaphore for anonymous signaling? It could provide additional privacy guarantees for the voting process. ```solidity // Example integration ISemaphore semaphore = ISemaphore(semaphoreAddress); semaphore.verifyProof(proof, merkleTreeDepth, signal); ```</p>
-                        </div>
-
-                        <div className="w-ful flex items-center justify-start gap-3 mt-2 pl-10">
-                            <Vote/>
-                            <Reply/>
-                            <Report/>
-                        </div>
-                    </div>
-                    <div className="comment w-full border-b border-gray-600 pb-2">
-                        <div className="w-full flex items-center justify-between">
-                            <div className="flex items-center justify-start gap-3">
-                                <div className="w-8 h-8 rounded-full overflow-hidden relative">
-                                    <Image
-                                        src="/user4.jpeg"
-                                        alt="user2"
-                                        fill
-                                        className='object-cover object-center'
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <h1 className="text-sm text-gray-500">Mike Rodriguez</h1>
-                                    <p className="text-[12px] text-gray-500">DevRel@Ethereum</p>
-                                </div>
-                            </div>
-                            <div className="flex">
-                                <p className="text-sm text-gray-500 sellf-end">3 hours ago</p>
-                            </div>
-                        </div>
-                        <div className="w-full mt-2 pl-10">
-                            <p className="dark:text-white text-sm">Excellent implementation! One suggestion: you might want to add a timelock for vote revealing to prevent last-minute manipulation attacks. Also, consider using EIP-712 for typed structured data signing when registering voters.</p>
-                        </div>
-
-                        <div className="w-ful flex items-center justify-start gap-3 mt-2 pl-10">
-                            <Vote/>
-                            <Reply/>
-                            <Report/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <CommentsContainer/>
           </div>
         </div>
       </div>
