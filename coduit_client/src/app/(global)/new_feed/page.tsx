@@ -1,116 +1,259 @@
 "use client"
 
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import { useState, useRef, KeyboardEvent, useEffect } from 'react'
+import { CodeEditor } from '@/components/pages/new_feed/CodeEditor'
+import FormMarkDown from '@/components/pages/new_feed/FormMarkdown'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+export default function NewFeed() {
+    const [content, setContent] = useState("")
+    const [tags, setTags] = useState<string[]>(["Blockchain", "Smart Contracts"])
+    const [tagInput, setTagInput] = useState("")
+    const [showMaxTagsAlert, setShowMaxTagsAlert] = useState(false)
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
+    const tagInputRef = useRef<HTMLInputElement>(null)
 
+    // Show alert when maximum tags reached
+    useEffect(() => {
+        if (showMaxTagsAlert) {
+            const timer = setTimeout(() => {
+                setShowMaxTagsAlert(false)
+            }, 3000) // Hide after 3 seconds
+            return () => clearTimeout(timer)
+        }
+    }, [showMaxTagsAlert])
 
-import FormMarkDown from '@/components/pages/new_feed/FormMarkdown';
-export default function NewFeed(){
-
-  return(
-    <>
-      <div className="w-full md:pl-72 ml-0 h-screen pt-[64] bg-white dark:bg-black md:pr-1">
-        <div className="w-full ml-0 bg-gray-100 dark:bg-dark800 h-full overflow-scroll rounded-t-sm">
-
-          <div className="w-full flex flex-col gap-2 p-1 pt-0">
-
-            <div className=" p-1 fixed right-1 left-72">
-              <div className="w-full bg-black border border-gray-600 p-1 flex items-center justify-between rounded">
-                <div className="flex items-center justify-start gap-3">
-                    <h1 className="text-sapphire font-bold">Create a New Feed</h1>
-                </div>
-                <div className="flex items-center justify-end gap-2">
-                   
-                </div>
-              </div>
-                
-            </div>
-
-
-            {/* ========================================== new post ========================================== */}
-            <div className="w-full flex items-start justify-between gap-4 mt-10">
-              <div className="flex-1 bg-black border border-gray-600 rounded">
-                <div className="w-full border-b border-gray-600 p-4">
-                  <h1 className="text-white font-bold text-xl">Create Your Feed</h1>
-                  <p className="text-gray-500 text-sm">Share your knowledge with the deveoper community</p>
-                </div>
-
-                {/* ========================================== new post form ====================================== */}
-
-                <div className="w-full p-4">
-                  <form action="" className="w-full flex flex-col gap-2">
-                    <div className="input-container w-full">
-                      <label htmlFor="title" className="uppercase text-gray-200 text-sm">POST TITLE <span className="text-candy">*</span></label>
-                      <input type="text" className="w-full bg-dark800 border border-gray-600 p-2 text-md text-white placeholder:text-white focus:outline-none focus:border-sapphire rounded" placeholder='Enter a desciptive title . . .'/>
-                      <p className="text-white font-bold text-[12px]">Tip: Use clear, descriptive titles to attract the right audience</p>
-                    </div>
-                    <div className="markdown-container w-full mt-2">
-                      <div className="w-full flex items-center justify-start gap-4">
-                        <label htmlFor="content" className="uppercase text-gray-200 text-sm">content <span className="text-candy">*</span></label>
-                        <p className="text-gray-500 font-bold text-[12px]">{`(Markdown $ HTML supported)`}</p>
-                      </div>
-                      <div className="w-full my-1">
-                        <FormMarkDown/>
-                      </div>
-
-                      <div className="textdiv w-full">
-                        <textarea 
-                          name="" 
-                          id="" 
-                          className="w-full border border-gray-300 dark:border-gray-600 text-white focus:outline-none dark:focus:border-sapphire  focus:border-sapphire rounded text-[12px] sm:text-[12px] min-h-40 h-40 p-3 overflow-hidden bg-gray-200 dark:bg-dark800 placeholder:text-gray-400" 
-                          placeholder='Start writing your post here... You can use Markdown, HTMLL, or insert code blocks.'
-                          rows={4}
-                        ></textarea>
-                      </div>
-                      <div className="w-full">
-                        <div className="w-full flex items-center justify-start gap-4 mt-3">
-                          <label htmlFor="content" className="uppercase text-gray-200 text-sm">tags</label>
-                          <p className="text-gray-500 font-bold text-[12px]">{`(Add upto 10)`}</p>
-                        </div>
-                        <div className="w-full bg-dark800 rounded p-2 border border-gray-600 mt-1 flex items-center justify-start gap-2 flex-wrap">
-                          <div className="flex items-center justify-start gap-1">
-
-                            <div className="flex items-center justify-between gap-2 rounded-2xl p-1 px-2 bg-sapphire text-white">
-                              <p className="text-sm">Blockchain</p>
-                              <span className="flex items-center justify-center text-xl"><CloseRoundedIcon className='!w-3'/></span>
-                            </div>
-                            <div className="flex items-center justify-between gap-2 rounded-2xl p-1 px-2 bg-sapphire text-white">
-                              <p className="text-sm text-nowrap">Smart Contracts</p>
-                              <span className="flex items-center justify-center text-xl"><CloseRoundedIcon className='!w-3'/></span>
-                            </div>
-
-                          </div>
-                          <div className="flex">
-                            <input type="text" className="text-gray-600 text-[12px] bg-transparent p-2" placeholder='Add a tag ... ' />
-                          </div>
-                        </div>
-                        <div className="w-full flex items-center justify-start gap-2">
-                          <p className="text-white text-[12px]">Popular tags: </p>
-                          <div className="flex items-center justify-start gap-0">
-                            <p className="text-white text-[12px]">#Solidity, </p>
-                            <p className="text-white text-[12px]">#Web3, </p>
-                            <p className="text-white text-[12px]">#React, </p>
-                            <p className="text-white text-[12px]">#TypeScript, </p>
-                            <p className="text-white text-[12px]">#Python, </p>
-                            <p className="text-white text-[12px]">#AI, </p>
-                            <p className="text-white text-[12px]">#Security</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-              </div>
-              <div className="w-1/3 h-96 bg-blue-400"></div>
-            </div>
+    // Handle inserting code from CodeEditor
+    const handleInsertCode = (code: string, language: string) => {
+        // Format as Markdown code block
+        const codeBlock = `\`\`\`${language}\n${code}\n\`\`\`\n\n`
+        
+        if (textareaRef.current) {
+            const textarea = textareaRef.current
+            const start = textarea.selectionStart
+            const end = textarea.selectionEnd
+            const text = textarea.value
             
-          </div>
-        </div>
-      </div>
-    </>
-  )
+            // Insert code at cursor position
+            const newText = text.substring(0, start) + codeBlock + text.substring(end)
+            
+            setContent(newText)
+            
+            // Focus back on textarea and place cursor after inserted code
+            setTimeout(() => {
+                textarea.focus()
+                const newCursorPos = start + codeBlock.length
+                textarea.setSelectionRange(newCursorPos, newCursorPos)
+            }, 0)
+        } else {
+            // If no cursor position, append to the end
+            setContent(prev => prev + codeBlock)
+        }
+    }
+
+    // Handle adding a tag when Enter is pressed
+    const handleTagInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault()
+            addTag()
+        }
+    }
+
+    // Add a new tag
+    const addTag = () => {
+        const trimmedTag = tagInput.trim()
+        
+        if (tags.length >= 10) {
+            setShowMaxTagsAlert(true)
+            return
+        }
+        
+        if (trimmedTag && !tags.includes(trimmedTag) && tags.length < 10) {
+            setTags([...tags, trimmedTag])
+            setTagInput("")
+        }
+    }
+
+    // Remove a tag
+    const removeTag = (tagToRemove: string) => {
+        setTags(tags.filter(tag => tag !== tagToRemove))
+    }
+
+    // Add popular tag
+    const addPopularTag = (popularTag: string) => {
+        if (tags.length >= 10) {
+            setShowMaxTagsAlert(true)
+            return
+        }
+        
+        if (!tags.includes(popularTag) && tags.length < 10) {
+            setTags([...tags, popularTag])
+        }
+    }
+
+    return (
+        <>
+            <div className="w-full md:pl-72 ml-0 h-screen pt-[64] bg-white dark:bg-black md:pr-1">
+                <div className="w-full ml-0 bg-gray-100 dark:bg-dark800 h-full overflow-scroll rounded-t-sm">
+                    <div className="w-full flex flex-col gap-2 p-1 pt-0">
+                        <div className="p-1 fixed right-1 left-72">
+                            <div className="w-full bg-black border border-gray-600 p-1 flex items-center justify-between rounded">
+                                <div className="flex items-center justify-start gap-3">
+                                    <h1 className="text-sapphire font-bold">Create a New Feed</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Maximum Tags Alert Popup */}
+                        {showMaxTagsAlert && (
+                            <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
+                                <div className="bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 animate-fade-in">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                    </svg>
+                                    <span className="text-sm font-medium">Maximum of 10 tags reached! Remove some to add more.</span>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="w-full flex items-start justify-between gap-4 mt-10">
+                            <div className="flex-1 bg-black border border-gray-600 rounded">
+                                <div className="w-full border-b border-gray-600 p-4">
+                                    <h1 className="text-white font-bold text-xl">Create Your Feed</h1>
+                                    <p className="text-gray-500 text-sm">Share your knowledge with the developer community</p>
+                                </div>
+
+                                <div className="w-full p-4">
+                                    <form action="" className="w-full flex flex-col gap-2">
+                                        <div className="input-container w-full">
+                                            <label htmlFor="title" className="uppercase text-gray-200 text-sm">POST TITLE <span className="text-candy">*</span></label>
+                                            <input type="text" className="w-full bg-dark800 border border-gray-600 p-2 text-md text-white placeholder:text-white focus:outline-none focus:border-sapphire rounded" placeholder='Enter a descriptive title . . .'/>
+                                            <p className="text-white font-bold text-[12px]">Tip: Use clear, descriptive titles to attract the right audience</p>
+                                        </div>
+                                        
+                                        <div className="markdown-container w-full mt-2">
+                                            <div className="w-full flex items-center justify-start gap-4">
+                                                <label htmlFor="content" className="uppercase text-gray-200 text-sm">content <span className="text-candy">*</span></label>
+                                                <p className="text-gray-500 font-bold text-[12px]">{`(Markdown & HTML supported)`}</p>
+                                            </div>
+                                            
+                                            <div className="w-full my-1">
+                                                <FormMarkDown/>
+                                            </div>
+
+                                            <div className="textdiv w-full">
+                                                <textarea 
+                                                    ref={textareaRef}
+                                                    value={content}
+                                                    onChange={(e) => setContent(e.target.value)}
+                                                    className="w-full border border-gray-600 text-white focus:outline-none focus:border-sapphire rounded text-sm min-h-40 p-3 bg-dark800 placeholder:text-gray-400 resize-y overflow-y-auto" 
+                                                    placeholder='Start writing your post here... You can use Markdown, HTML, or insert code blocks.'
+                                                    rows={8}
+                                                    style={{ maxHeight: "1000px" }}
+                                                />
+                                            </div>
+
+                                            {/* Code Editor Section */}
+                                            <div className="w-full mt-4">
+                                                <CodeEditor onInsert={handleInsertCode} />
+                                            </div>
+
+                                            {/* Tags Section */}
+                                            <div className="w-full">
+                                                <div className="w-full flex items-center justify-start gap-4 mt-3">
+                                                    <label htmlFor="content" className="uppercase text-gray-200 text-sm">tags</label>
+                                                    <p className="text-gray-500 font-bold text-[12px]">{`(Add up to 10)`}</p>
+                                                    <span className="text-gray-500 text-[12px]">
+                                                        ({tags.length}/10)
+                                                    </span>
+                                                </div>
+                                                <div className="w-full bg-dark800 rounded p-2 border border-gray-600 mt-1 flex items-center justify-start gap-2 flex-wrap">
+                                                    {/* Tags container */}
+                                                    <div className="flex items-center justify-start gap-1 flex-wrap">
+                                                        {tags.map((tag, index) => (
+                                                            <div 
+                                                                key={index} 
+                                                                className="flex items-center justify-between gap-2 rounded-2xl p-1 px-2 bg-sapphire text-white"
+                                                            >
+                                                                <p className="text-sm">{tag}</p>
+                                                                <button 
+                                                                    type="button"
+                                                                    onClick={() => removeTag(tag)}
+                                                                    className="flex items-center justify-center text-xl hover:text-gray-200"
+                                                                >
+                                                                    <CloseRoundedIcon className='!w-3'/>
+                                                                </button>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+
+                                                    {/* Tags input - Disabled when max reached */}
+                                                    <div className="flex">
+                                                        <input 
+                                                            ref={tagInputRef}
+                                                            type="text" 
+                                                            value={tagInput}
+                                                            onChange={(e) => setTagInput(e.target.value)}
+                                                            onKeyDown={handleTagInputKeyDown}
+                                                            className={`text-white text-[12px] focus:outline-none bg-transparent p-2 min-w-[120px] ${tags.length >= 10 ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                                                            placeholder={tags.length >= 10 ? 'Maximum tags reached' : 'Add a tag ... (Press Enter)'}
+                                                            disabled={tags.length >= 10}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                
+                                                {/* Tag counter and popular tags */}
+                                                <div className="w-full flex items-center justify-between mt-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <p className="text-white text-[12px]">Popular tags: </p>
+                                                        <div className="flex items-center justify-start gap-1 flex-wrap">
+                                                            {["Solidity", "Web3", "React", "TypeScript", "Python", "AI", "Security"].map((popularTag) => (
+                                                                <button
+                                                                    key={popularTag}
+                                                                    type="button"
+                                                                    onClick={() => addPopularTag(popularTag)}
+                                                                    className={`text-white text-[12px] hover:text-sapphire transition-colors ${tags.length >= 10 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                    disabled={tags.length >= 10}
+                                                                >
+                                                                    #{popularTag},
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* Tag counter */}
+                                                    <div className={`text-xs px-2 py-1 rounded ${tags.length >= 10 ? 'bg-red-900/30 text-red-400' : 'bg-gray-800 text-gray-400'}`}>
+                                                        {tags.length}/10 tags
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="w-1/3 h-96 bg-blue-400"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Add animation for the alert */}
+            <style jsx>{`
+                @keyframes fade-in {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px) translateX(-50%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0) translateX(-50%);
+                    }
+                }
+                
+                .animate-fade-in {
+                    animation: fade-in 0.3s ease-out;
+                }
+            `}</style>
+        </>
+    )
 }

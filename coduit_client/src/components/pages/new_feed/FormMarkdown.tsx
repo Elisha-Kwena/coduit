@@ -23,9 +23,9 @@ export default function FormMarkDown(){
                     <Quotes/>
                 </div>
                 <div className="h-8 w-[1px] bg-gray-600"></div>
-                <div className="flex items-center justify-start gap-2">
+                {/* <div className="flex items-center justify-start gap-2">
                     <CodeBlock/>
-                </div>
+                </div> */}
             </div>
         </>
     )
