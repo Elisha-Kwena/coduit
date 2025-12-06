@@ -8,6 +8,13 @@ import { useState, useRef, KeyboardEvent, useEffect, ChangeEvent } from 'react'
 import { CodeEditor } from '@/components/pages/new_feed/CodeEditor'
 import FormMarkDown from '@/components/pages/new_feed/FormMarkdown'
 
+
+import FeedType from '@/components/pages/new_feed/FeedType'
+import Visibility from '@/components/pages/new_feed/Visibility'
+import Publish from '@/components/pages/new_feed/Publish'
+import Guidelines from '@/components/pages/new_feed/Guidelines'
+import PostDetails from '@/components/pages/new_feed/PostDetails'
+
 export default function NewFeed() {
     const [content, setContent] = useState("")
     const [tags, setTags] = useState<string[]>(["Blockchain", "Smart Contracts"])
@@ -143,7 +150,7 @@ export default function NewFeed() {
             <div className="w-full md:pl-72 ml-0 h-screen pt-[64] bg-white dark:bg-black md:pr-1">
                 <div className="w-full ml-0 bg-gray-100 dark:bg-dark800 h-full overflow-scroll rounded-t-sm">
                     <div className="w-full flex flex-col gap-2 p-1 pt-0">
-                        <div className="p-1 fixed right-1 left-72 bg-dark800">
+                        <div className="p-1 fixed right-0 md:right-1 left-0 md:left-72 bg-dark800 z-[100]">
                             <div className="w-full bg-black border border-gray-600 p-1 flex items-center justify-between rounded">
                                 <div className="flex items-center justify-start gap-3">
                                     <h1 className="text-sapphire font-bold">Create a New Feed</h1>
@@ -163,8 +170,9 @@ export default function NewFeed() {
                             </div>
                         )}
 
-                        <div className="w-full overflow-hidden flex items-start justify-between gap-4 mt-10 pb-4">
-                            <div className="flex-1 bg-black border border-gray-600 rounded">
+                        <div className="w-full overflow-hidden flex items-start flex-col md:flex-row justify-between gap-4 md:mt-11 pb-1 relative">
+                            {/* post form */}
+                            <div className="w-full md:flex-1 bg-black border border-gray-600 rounded overflow-y-auto">
                                 <div className="w-full border-b border-gray-600 p-4">
                                     <h1 className="text-white font-bold text-xl">Create Your Feed</h1>
                                     <p className="text-gray-500 text-sm">Share your knowledge with the developer community</p>
@@ -337,7 +345,15 @@ export default function NewFeed() {
                                     </form>
                                 </div>
                             </div>
-                            <div className="w-1/3 h-96 bg-blue-400"></div>
+
+                            {/* post settings */}
+                            <div className="w-full md:w-1/3  overflow-y-auto flex flex-col gap-4">
+                              <FeedType/>
+                              <Visibility/>
+                              <Publish/>
+                              <Guidelines/>
+                              <PostDetails/>
+                            </div>
                         </div>
                     </div>
                 </div>
