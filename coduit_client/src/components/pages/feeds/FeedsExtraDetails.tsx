@@ -10,7 +10,7 @@ interface ExtraDetailsProps{
 export default function FeedExtraDetails({toggleExtras}:ExtraDetailsProps){
     return(
         <>
-        <div className="w-full flex flex-col gap-6">
+        <div className="w-full flex flex-col gap-6 z-100">
             <div className="w-full dark:border shadow bg-white dark:bg-black border-gray-600 rounded p-4  flex flex-col gap-3 relative">
                 <button 
                     onClick={toggleExtras}
@@ -97,14 +97,14 @@ export default function FeedExtraDetails({toggleExtras}:ExtraDetailsProps){
             <div className="w-full dark:border bg-white shadow dark:bg-black border-gray-600 rounded p-4  flex flex-col gap-3">
                 <h1 className="dark:text-white font-bold">Trending Tags</h1>
                 <div className="w-full flex items-center justify-start gap-3 flex-wrap">
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#Solidity</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#Web3</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#Rust</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#ZKProofs</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#DeFi</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#NFT</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#DAO</div>
-                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire">#Layer2</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#Solidity</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#Web3</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#Rust</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#ZKProofs</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#DeFi</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#NFT</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#DAO</div>
+                    <div className="bg-gray-200 dark:bg-dark800 rounded-full p-2 text-gray-500 dark:text-gray-300 text-center px-3 text-sm transition-all ease-in-out duration-300 hover:text-white hover:bg-sapphire dark:hover:bg-sapphire">#Layer2</div>
                 </div>
             </div>
         </div>

@@ -198,7 +198,7 @@ export default function FeedDetails(){
 
                 {/*=========================================================== post extra details ===========================================================================*/}
 
-                <div className={`w-full md:w-80 md:sticky p-1  left-0 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-gray-200 dark:bg-dark800 ${openExtras?"left-0":"-left-full"}`}>
+                <div className={`w-full md:w-80 md:sticky p-1 md:p-0 fixed md:h-fit h-screen overflow-scroll top-14 md:top-2 md:flex  md:bg-transparent transition-all duration-300 ease-in-out bg-gray-200 dark:bg-dark800 ${openExtras?"left-0":"-left-full"}`}>
                     <FeedExtraDetails toggleExtras={toggleExtras}/>
                 </div>
             </div>
