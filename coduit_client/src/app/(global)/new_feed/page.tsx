@@ -1,7 +1,10 @@
 "use client"
 
+import Image from 'next/image'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import BackupRoundedIcon from '@mui/icons-material/BackupRounded'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import { useState, useRef, KeyboardEvent, useEffect } from 'react'
+import { useState, useRef, KeyboardEvent, useEffect, ChangeEvent } from 'react'
 import { CodeEditor } from '@/components/pages/new_feed/CodeEditor'
 import FormMarkDown from '@/components/pages/new_feed/FormMarkdown'
 
@@ -10,22 +13,34 @@ export default function NewFeed() {
     const [tags, setTags] = useState<string[]>(["Blockchain", "Smart Contracts"])
     const [tagInput, setTagInput] = useState("")
     const [showMaxTagsAlert, setShowMaxTagsAlert] = useState(false)
+    const [selectedImage, setSelectedImage] = useState<File | null>(null)
+    const [imagePreview, setImagePreview] = useState<string | null>(null)
+    
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const tagInputRef = useRef<HTMLInputElement>(null)
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     // Show alert when maximum tags reached
     useEffect(() => {
         if (showMaxTagsAlert) {
             const timer = setTimeout(() => {
                 setShowMaxTagsAlert(false)
-            }, 3000) // Hide after 3 seconds
+            }, 3000)
             return () => clearTimeout(timer)
         }
     }, [showMaxTagsAlert])
 
+    // Clean up image preview URL when component unmounts
+    useEffect(() => {
+        return () => {
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview)
+            }
+        }
+    }, [imagePreview])
+
     // Handle inserting code from CodeEditor
     const handleInsertCode = (code: string, language: string) => {
-        // Format as Markdown code block
         const codeBlock = `\`\`\`${language}\n${code}\n\`\`\`\n\n`
         
         if (textareaRef.current) {
@@ -34,19 +49,15 @@ export default function NewFeed() {
             const end = textarea.selectionEnd
             const text = textarea.value
             
-            // Insert code at cursor position
             const newText = text.substring(0, start) + codeBlock + text.substring(end)
-            
             setContent(newText)
             
-            // Focus back on textarea and place cursor after inserted code
             setTimeout(() => {
                 textarea.focus()
                 const newCursorPos = start + codeBlock.length
                 textarea.setSelectionRange(newCursorPos, newCursorPos)
             }, 0)
         } else {
-            // If no cursor position, append to the end
             setContent(prev => prev + codeBlock)
         }
     }
@@ -91,12 +102,48 @@ export default function NewFeed() {
         }
     }
 
+    // Handle image file selection
+    const handleImageSelect = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (file) {
+            // Clean up previous preview if exists
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview)
+            }
+            
+            setSelectedImage(file)
+            const previewUrl = URL.createObjectURL(file)
+            setImagePreview(previewUrl)
+        }
+    }
+
+    // Handle remove image
+    const handleRemoveImage = () => {
+        if (imagePreview) {
+            URL.revokeObjectURL(imagePreview)
+        }
+        setSelectedImage(null)
+        setImagePreview(null)
+        
+        // Reset file input
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''
+        }
+    }
+
+    // Handle upload area click
+    const handleUploadAreaClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click()
+        }
+    }
+
     return (
         <>
             <div className="w-full md:pl-72 ml-0 h-screen pt-[64] bg-white dark:bg-black md:pr-1">
                 <div className="w-full ml-0 bg-gray-100 dark:bg-dark800 h-full overflow-scroll rounded-t-sm">
                     <div className="w-full flex flex-col gap-2 p-1 pt-0">
-                        <div className="p-1 fixed right-1 left-72">
+                        <div className="p-1 fixed right-1 left-72 bg-dark800">
                             <div className="w-full bg-black border border-gray-600 p-1 flex items-center justify-between rounded">
                                 <div className="flex items-center justify-start gap-3">
                                     <h1 className="text-sapphire font-bold">Create a New Feed</h1>
@@ -116,7 +163,7 @@ export default function NewFeed() {
                             </div>
                         )}
 
-                        <div className="w-full flex items-start justify-between gap-4 mt-10">
+                        <div className="w-full overflow-hidden flex items-start justify-between gap-4 mt-10 pb-4">
                             <div className="flex-1 bg-black border border-gray-600 rounded">
                                 <div className="w-full border-b border-gray-600 p-4">
                                     <h1 className="text-white font-bold text-xl">Create Your Feed</h1>
@@ -146,10 +193,10 @@ export default function NewFeed() {
                                                     ref={textareaRef}
                                                     value={content}
                                                     onChange={(e) => setContent(e.target.value)}
-                                                    className="w-full border border-gray-600 text-white focus:outline-none focus:border-sapphire rounded text-sm min-h-40 p-3 bg-dark800 placeholder:text-gray-400 resize-y overflow-y-auto" 
+                                                    className="w-full border border-gray-600 text-white focus:outline-none focus:border-sapphire rounded text-sm min-h-40 max-h-[1000px] p-3 bg-dark800 placeholder:text-gray-400 resize-y overflow-y-auto" 
                                                     placeholder='Start writing your post here... You can use Markdown, HTML, or insert code blocks.'
                                                     rows={8}
-                                                    style={{ maxHeight: "1000px" }}
+                                                    
                                                 />
                                             </div>
 
@@ -226,6 +273,65 @@ export default function NewFeed() {
                                                         {tags.length}/10 tags
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            {/* ==================== Cover Image Section ==================== */}
+                                            <div className="w-full mt-4">
+                                                <div className="w-full flex items-center justify-start gap-4 mt-3">
+                                                    <label htmlFor="content" className="uppercase text-gray-200 text-sm">cover image</label>
+                                                    <p className="text-gray-500 font-bold text-[12px]">{`(Recommended: 1200x630px)`}</p>
+                                                </div>
+
+                                                {/* Upload Area - Only shown when no image is selected */}
+                                                {!selectedImage && (
+                                                    <div className="w-full mt-2">
+                                                        <input 
+                                                            type="file" 
+                                                            id="cover" 
+                                                            ref={fileInputRef}
+                                                            accept="image/*"
+                                                            className='hidden' 
+                                                            onChange={handleImageSelect}
+                                                        />
+                                                        <label htmlFor="cover" className="cursor-pointer">
+                                                            <div 
+                                                                onClick={handleUploadAreaClick}
+                                                                className="w-full h-40 border-2 border-dashed rounded bg-dark800 hover:border-sapphire transition-all ease-in-out duration-300 hover:bg-gray-800 cursor-pointer border-gray-600 flex flex-col gap-1 items-center justify-center"
+                                                            >
+                                                                <BackupRoundedIcon className='text-gray-500 !w-12 !h-12'/>
+                                                                <h1 className="font-bold text-gray-500 text-sm">Drag & drop or click to upload</h1>
+                                                                <p className="text-gray-500 text-[12px]">PNG, JPG GIF up to 5MB</p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                )}
+
+                                                {/* Image Preview - Only shown when image is selected */}
+                                                {selectedImage && imagePreview && (
+                                                    <div className="w-full border border-gray-600 rounded p-2 mt-2">
+                                                        <h1 className="text-gray-500 text-sm">Image Preview</h1>
+
+                                                        <div className="w-full mt-2 h-96 rounded relative overflow-hidden">
+                                                            <Image
+                                                                src={imagePreview}
+                                                                alt="Selected cover"
+                                                                fill
+                                                                className="object-cover object-center"
+                                                            />
+                                                        </div>
+
+                                                        <div className="w-full mt-2">
+                                                            <button 
+                                                                type="button"
+                                                                onClick={handleRemoveImage}
+                                                                className="flex items-center justify-start gap-2 p-2 rounded border bg-candy hover:bg-red-600 border-candy transition-colors"
+                                                            >
+                                                                <DeleteRoundedIcon className='text-white'/>
+                                                                <p className="text-white">Remove Image</p>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </form>
