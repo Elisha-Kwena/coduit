@@ -12,6 +12,5 @@ export const supportedLanguages = [
     { id: 10, label: "Go", value: "go", extension: "go" },
     { id: 11, label: "Rust", value: "rust", extension: "rust" },
     { id: 12, label: "JSON", value: "json", extension: "json" },
-    { id: 13, label: "Markdown", value: "markdown", extension: "markdown" },
-    // Remove unavailable: C#, Kotlin, Swift, Ruby, Dart, Shell for now
+    { id: 13, label: "Markdown", value: "markdown", extension: "markdown" }
 ]

@@ -25,7 +25,7 @@ export default function FeedCard({id,title,banner,content,comments,likes,group,g
     const { truncateText } = useTextTruncate();
     return(
         <>
-            <div className="rounded bg-white dark:bg-black flex flex-col gap-1 border dark:border-black border-white transition-all duration-300 ease-out md:hover:border-sapphire md:dark:hover:border-sapphire md:hover:-translate-y-2">
+            <div className="rounded-md bg-white dark:bg-black flex flex-col gap-1 border dark:border-black border-white transition-all duration-300 ease-out md:hover:border-sapphire md:dark:hover:border-sapphire md:hover:-translate-y-2">
 
                 {/* top */}
                 <div className="w-full flex items-start justify-between gap-3 p-2">
@@ -70,7 +70,7 @@ export default function FeedCard({id,title,banner,content,comments,likes,group,g
 
                 <div className="w-full md:px-2 pl-10 flex-1">
                     <p className="dark:text-white md:text-[12px] text-[14px] block md:hidden">{truncateText(content,120)}</p>
-                    <p className="dark:text-white md:text-[12px] md:block hidden text-[14px]">{truncateText(content,100)}</p>
+                    <p className="dark:text-white md:text-sm md:block hidden text-[14px]">{truncateText(content,140)}</p>
                 </div>
 
                 <div className="w-full md:p-2 md:pl-2 pl-10 pb-1">

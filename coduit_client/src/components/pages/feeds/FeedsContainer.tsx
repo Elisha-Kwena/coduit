@@ -74,7 +74,7 @@ import FeedCard from "../../ui/cards/FeedsCard"
 export default function FeedsContainer(){
     return(
         <>
-            <div className="w-full grid grif-cols-1 md:grid-cols-4 gap-3 pb-2">
+            <div className="w-full grid grif-cols-1 md:grid-cols-3 gap-3 pb-2">
                 {feeds.map(feed =>(
                     <FeedCard
                         key={feed.id}

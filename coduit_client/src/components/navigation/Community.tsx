@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useDropdown } from '@/context/DropDownContext';
 
@@ -14,12 +15,47 @@ export default function Community({ id }: { id: string }) {
   const pathname = usePathname();
   const { openDropdownId, setOpenDropdownId } = useDropdown();
   const isOpen = openDropdownId === id;
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when route changes
+  useEffect(() => {
+    setOpenDropdownId(null);
+  }, [pathname, setOpenDropdownId]);
+
+  // Handle click outside and escape key
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdownId(null);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setOpenDropdownId(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isOpen, setOpenDropdownId]);
 
   return (
-    <div className={`w-full relative rounded-md pl-1 p-2 transition-all duration-300 ease-in-out dark:hover:bg-[#232323] hover:bg-gray-400 ${isOpen ? "bg-gray-400 dark:bg-[#232323]":"bg-gray-200 dark:bg-black"}`}>
+    <div 
+      ref={dropdownRef}
+      className={`w-full relative rounded-md pl-1 p-2 transition-all duration-300 ease-in-out dark:hover:bg-[#232323] hover:bg-gray-400 ${isOpen ? "bg-gray-400 dark:bg-[#232323]":"bg-gray-200 dark:bg-black"}`}
+    >
       <button
         className={`group w-full flex items-center justify-between rounded-md ${isOpen ? "text-sapphire" : "dark:text-white"}`}
         onClick={() => setOpenDropdownId(isOpen ? null : id)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        id={`community-button-${id}`}
       >
         <div className="flex items-center justify-start gap-4">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5 transition-all duration-300 ease-in-out group-hover:text-sapphire">
@@ -40,14 +76,19 @@ export default function Community({ id }: { id: string }) {
         className={`w-full flex flex-col justify-start items-end gap-1 mt-1 overflow-hidden transition-all duration-500 ease-in-out ${
           isOpen ? 'max-h-96' : 'max-h-0'
         }`}
+        role="menu"
+        aria-labelledby={`community-button-${id}`}
       >
         {navItems.map((link, index) => (
           <Link
             href={link.href}
             key={index}
-            className={`w-3/4 flex items-center p-2 justify-between bg-gray-200 dark:bg-black rounded-[8px] font-bold shadow-xl hover:text-sapphire transition-all duration-300 ease-in-out ${
+            className={`w-3/4 flex items-center p-2 justify-between bg-gray-200 dark:bg-black rounded-[8px] font-bold shadow-xl hover:text-sapphire dark:hover:text-sapphire transition-all duration-300 ease-in-out ${
               pathname === link.href ? 'text-sapphire' : 'dark:text-white'
             }`}
+            role="menuitem"
+            tabIndex={isOpen ? 0 : -1}
+            onClick={() => setOpenDropdownId(null)}
           >
             <div className="flex items-center justify-start gap-4">
               <span className="text-[12px] font-fira-code">{link.label}</span>
