@@ -34,7 +34,7 @@ export default function Visibility(){
                     {visibility.map(option =>{
                         const OptionIcon = option.icon
                         return(
-                            <button className="w-full p-2 rounded border border-gray-600 bg-dark800 flex items-center justify-start gap-2 hover:bg-sapphire/10 hover:border-sapphire group transition-all duration-300 ease-in-out">
+                            <button key={option.id} className="w-full p-2 rounded border border-gray-600 bg-dark800 flex items-center justify-start gap-2 hover:bg-sapphire/10 hover:border-sapphire group transition-all duration-300 ease-in-out">
                                 <div className="flex items-center justify-center">
                                     <OptionIcon className='group-hover:text-sapphire transition-all duration-300 ease-in-out'/>
                                 </div>

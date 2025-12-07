@@ -150,13 +150,13 @@ export default function NewFeed() {
             <div className="w-full md:pl-72 ml-0 h-screen pt-[64] bg-white dark:bg-black md:pr-1">
                 <div className="w-full ml-0 bg-gray-100 dark:bg-dark800 h-full overflow-scroll rounded-t-sm">
                     <div className="w-full flex flex-col gap-2 p-1 pt-0">
-                        <div className="p-1 fixed right-0 md:right-1 left-0 md:left-72 bg-dark800 z-[100]">
+                        {/* <div className="p-1 fixed right-0 md:right-1 left-0 md:left-72 bg-dark800 z-20">
                             <div className="w-full bg-black border border-gray-600 p-1 flex items-center justify-between rounded">
                                 <div className="flex items-center justify-start gap-3">
                                     <h1 className="text-sapphire font-bold">Create a New Feed</h1>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Maximum Tags Alert Popup */}
                         {showMaxTagsAlert && (
@@ -170,7 +170,7 @@ export default function NewFeed() {
                             </div>
                         )}
 
-                        <div className="w-full overflow-hidden flex items-start flex-col md:flex-row justify-between gap-4 md:mt-11 pb-1 relative">
+                        <div className="w-full overflow-hidden flex items-start flex-col md:flex-row justify-between gap-4 pt-1 pb-1 relative">
                             {/* post form */}
                             <div className="w-full md:flex-1 bg-black border border-gray-600 rounded overflow-y-auto">
                                 <div className="w-full border-b border-gray-600 p-4">

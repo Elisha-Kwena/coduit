@@ -69,7 +69,7 @@ export default function Sidebar(){
     return(
         <>
             <DropdownProvider>
-                <aside className={`w-72 h-screen bg-white dark:bg-black p-3 pb-1 md:pt-20 pt-24 md:block fixed top-0 transition-all duration-300 ease-in-out ${isOpen?" left-0":"md:left-0 -left-72"} z-50`}>
+                <aside className={`w-72 h-screen bg-white dark:bg-black p-3 pb-1 md:pt-20 pt-16 md:block fixed top-0 transition-all duration-300 ease-in-out ${isOpen?" left-0":"md:left-0 -left-72"} z-50`}>
                     <div className="w-full h-full flex items-center justify-between flex-col gap-4">
 
                         {/* top side of the sidebar */}
