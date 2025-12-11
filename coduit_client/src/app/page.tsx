@@ -9,6 +9,7 @@ import Features from "@/components/landing/Features";
 import Feedback from "@/components/landing/Feedback";
 import Stats from "@/components/landing/Stats";
 import Footer from "@/components/layout/Footer";
+import Cta from "@/components/landing/Cta";
 import LandingNavBar from "@/components/layout/LandingNavBar";
 export default function Home() {
   return (
@@ -50,14 +51,9 @@ export default function Home() {
             </div>
           </section>
           <section className="w-full bg-black lg:p-0 px-2 flex flex-col items-center justify-center gap-4">
-            <div className="cta rounded-lg border border-chrome p-3 lg:p-6 mt-16 w-full lg:w-[60%] mx-auto">
-                <h1 className="text-2xl lg:text-5xl font-plex-sans font-extrabold text-center text-white">Ready to join the Community?</h1>
-                <div className="text-chrome mt-6 text-md lg:text-xl font-fira-code text-center">Join a community of developers who are passionate about coding and building amazing things.</div>
-                <div className="w-full flex items-center justify-center gap-2 mt-6">
-                    <Link href="/register" className='bg-sapphire p-2 lg:p-3 text-white font-fira-code font-extrabold border-[2px] border-sapphire text-center text-sm lg:text-xl rounded-sm transition-all duration-300 hover:bg-transparent hover:text-sapphire hover:-translate-y-2'>Get Started Now</Link>
-                    <Link href="" className='bg-transparent p-2 lg:p-3 text-white font-fira-code font-extrabold border-[2px] border-white text-center text-sm lg:text-xl rounded-sm transition-all duration-300 hover:border-sapphire hover:text-sapphire hover:-translate-y-2'>Explore communities</Link>
-                </div>
-            </div>
+            {/*===============================================cta================================ */}
+            <Cta/>
+            {/* ===================================end cta ================================================= */}
             <div className="w-full mt-12 bg-dark800 pb-16">
               <div className="w-full relative" style={{ height: '200px' }}>
                   <Image

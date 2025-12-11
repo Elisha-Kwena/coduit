@@ -2,11 +2,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital@0;1&display=swap'); */
 
 /* .dark {
   @apply bg-black text-white;
 }  */
+
 html {
   @apply antialiased font-sans;
 }
@@ -102,4 +104,47 @@ html.dark {
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: #4b5563 #1f2937;
+}
+
+/* Gradient Button Styles */
+.gradient-button {
+  background: linear-gradient(135deg, #0908c3 0%, #1586f5 100%);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(135deg, #0908c3 0%, #1586f5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(9, 8, 195, 0.3);
+}
+
+.gradient-button-variant {
+  background: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.gradient-button-variant:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #0908c3;
+  color: #0908c3;
+  transform: translateY(-2px);
+}
+
+/* Optional: Add pulse animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(9, 8, 195, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(9, 8, 195, 0.8);
+  }
+}
+
+.gradient-button {
+  animation: pulse-glow 2s infinite;
 }
